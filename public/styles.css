@@ -1,0 +1,18 @@
+body {
+    margin: 0;
+}
+
+.header {
+    background-color: #eee;
+}
+
+.header-title {
+    font-size: 60px;
+    margin: 0;
+    font-family: 'Modak', cursive;
+}
+
+.content {
+    min-height: 80vh;
+    padding: 20px 0;
+}
