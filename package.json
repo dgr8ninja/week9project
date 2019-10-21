@@ -1,0 +1,30 @@
+{
+  "name": "week9project",
+  "version": "1.0.0",
+  "description": "Week 9 Project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/dgr8ninja/week9project.git"
+  },
+  "keywords": [
+    "data",
+    "postgres",
+    "datbases"
+  ],
+  "author": "Damon Ponder",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dgr8ninja/week9project/issues"
+  },
+  "homepage": "https://github.com/dgr8ninja/week9project#readme",
+  "dependencies": {
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "pug": "^2.0.4"
+  }
+}
