@@ -1,3 +1,10 @@
 server/node_modules
 node_modules
 .DS_Store
+node_modules
+node_modules/bcrypt/lib/binding/bcrypt_lib.node
+node_modules/bcrypt/package.json
+node_modules/body-parser/package.json
+node_modules/express/package.json
+node_modules/pug/package.json
+
