@@ -1,0 +1,20 @@
+extend ../base
+
+block base
+    .container
+        h1 AutoMD - Register Your New Account
+        form(method="POST" action="/account/register")
+        div(classname="inputWrapper")
+            div
+            label(classname="labelText") E-Mail
+            input(classname="registerInput", name="email", type="email", placeholder="Email")
+            br
+            label(classname="labelText") Password
+            input(classname="registerInput", name="password", type="password", placeholder="Password")
+            br
+            label(classname='labelText') First Name
+            input(classname="registerInput", name="firstName", placeholder="First Name")
+            label(classname="labelText") Last Name
+            input(classname="registerInput", name="lastName", placeholder="Last Name")
+            div
+            button.btn.btn-primary Register

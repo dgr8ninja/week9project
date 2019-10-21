@@ -16,3 +16,34 @@ body {
     min-height: 80vh;
     padding: 20px 0;
 }
+
+.inputWrapper {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: 10rem 20rem;
+    grid-row-gap: 5px;
+}
+
+.mainText {
+    font-size: 3rem;
+    font-weight: 900;
+    text-align: center;
+}
+
+.labelText {
+    padding-top: 0.79375rem;
+    /* padding-bottom added for visualization of vertical alignment */
+    padding-bottom: 0.79375rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.registerInput {
+    background-color: black;
+    color: white;
+    font-size: 1.5rem;
+    border: 2px solid blue;
+    border-radius: 15px;
+    height: 3rem;
+    text-align: center;
+}
