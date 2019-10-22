@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const bcrypt = require("bcrypt");
+//const bcrypt = require("bcrypt");
 const app = express();
 const port = 3000;
 const session = require('express-session');
@@ -29,9 +29,6 @@ app.get("/", function(req, res) {
     res.render("index", { title: "Hey", message: "Howdy!" });
 });
 
-app.listen(port, () => {
-    console.log(`Port ${port} is listening`);
-});
 
 app.get ('/home', function(req, res) {
     res.render('home')
@@ -41,4 +38,8 @@ app.get ('/login', function(req, res) {
 });
 app.get('/register', function(req, res) {
     res.render('register')
+});
+
+app.listen(port, () => {
+    console.log(`Port ${port} is listening`);
 });
