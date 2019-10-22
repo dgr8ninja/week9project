@@ -4,7 +4,7 @@ const db = require("../database");
 
 function loginRedirect(req, res, next) {
     if (req.session.user_id) {
-        res.redirect("/account/dashboard");
+        res.redirect("/account/dashboard"); //this will redirect to the main logged on page
     } else {
         next();
     }
@@ -51,7 +51,7 @@ router.get("/login", loginRedirect, function(req, res) {
 });
 
 router.get("/register", loginRedirect, function(req, res) {
-    res.render("account/register");
+    res.render("./account/register");
 });
 
 router.post("/register", async(req, res) => {
