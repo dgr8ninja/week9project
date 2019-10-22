@@ -1,20 +1,45 @@
-extend ../base
+extend basehome
 
 block base
   .container
     .row
       .col
-        h1 AutoMD - Home Page 
-        if registeredSuccessfully
-          .alert.alert-success You have registered successfully, now you may log in.
-        form(method="POST" action="/account/login")
-          .form-group
-            label(for='email') Car Make
-            input#email.form-control(name="email" type="text" aria-describedby="emailHelp" placeholder="Enter email")
-        button.btn.btn-primary Car Make
-          .form-group
-            label(for='password') Car Model
-            input#password.form-control(name="password" type="password" aria-describedby="passwordHelp" placeholder="Enter password")
-          button.btn.btn-primary Car Model
+        h1 AutoMD - Diagnosis  
 
-
+        form(action='/submit-complaint' method='POST')
+            h4.spacing Car Make
+            select(name='carMake')
+                option#userPageButton(value='' disabled='' selected='') Car Make
+                input(type='hidden' name='id' value='{{persistedUser.id}}')
+                input(type='text' name='description' placeholder='Enter Description')
+                input#latInput(type='hidden' name='lat')
+                input#longInput(type='hidden' name='long')
+                button(type='submit') Submit Car Make
+         
+            h4.spacing Car Model
+            select(name='carModel')
+                option#userPageButton(value='' disabled='' selected='') Car Model
+                input(type='hidden' name='id' value='{{persistedUser.id}}')
+                input(type='text' name='description' placeholder='Enter Description')
+                input#latInput(type='hidden' name='lat')
+                input#longInput(type='hidden' name='long')
+                button(type='submit') Submit Car Model
+         
+            h4.spacing Car Year
+            select(name='carYear')
+                option#userPageButton(value='' disabled='' selected='') Car Year
+                input(type='hidden' name='id' value='{{persistedUser.id}}')
+                input(type='text' name='description' placeholder='Enter Description')
+                input#latInput(type='hidden' name='lat')
+                input#longInput(type='hidden' name='long')
+                button(type='submit') Submit Car Year
+        
+            h4.spacing Symptoms
+            select(name='carYear')
+                option#userPageButton(value='' disabled='' selected='') Symptoms
+                input(type='hidden' name='id' value='{{persistedUser.id}}')
+                input(type='text' name='description' placeholder='Enter Description')
+                input#latInput(type='hidden' name='lat')
+                input#longInput(type='hidden' name='long')
+        hr 
+        button(type='submit') Submit All for Diagnosis
