@@ -6,7 +6,6 @@ function loginRedirect(req, res, next) {
     if (req.session.user_id) {
         res.redirect("/account/dashboard"); //this will redirect to the main logged on page
     } else {
-        console.log("gig em Aggies");
         next();
     }
 }
@@ -52,7 +51,6 @@ router.get("/login", loginRedirect, function(req, res) {
 });
 
 router.get("/register", loginRedirect, function(req, res) {
-    console.log("howdy aggies");
     res.render("./account/register");
 });
 
