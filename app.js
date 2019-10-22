@@ -33,11 +33,11 @@ app.listen(port, () => {
     console.log(`Port ${port} is listening`);
 });
 
-app.get ('/home', function(req, res) {
-    res.render('home')
+app.get ('/Home', function(req, res) {
+    res.render('homelayout')
 });
-app.get ('/login', function(req, res) {
-    res.render('login')
+app.get ('/logon', function(req, res) {
+    res.render('Home')
 });
 app.get('/register', function(req, res) {
     res.render('register')
