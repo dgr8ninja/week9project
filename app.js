@@ -25,12 +25,14 @@ app.get("/", function(req, res) {
 
 
 app.get ('/Home', function(req, res) {
-    res.render('homelayout')
+    res.render('Home')
 });
+
 app.get ('/logon', function(req, res) {
     res.render('Home')
 });
-app.get('/register', function(req, res) {
+
+app.get('/register', async (req, res) => {
     res.render('register')
 });
 app.get("/Symptoms", async(req,res)=>{
@@ -50,4 +52,15 @@ app.get("/Symptoms/:id", async(req,res)=>{
 });
 app.listen(port, () => {
     console.log(`Port ${port} is listening`);
+});
+
+app.post('/cmake', (req, res)  => {
+    
+    let category =  req.body.category
+    
+
+    data.models.vehicles.findall().then((cmake) => 
+
+    res.json(cmake))
+    
 });
