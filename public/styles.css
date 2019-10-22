@@ -1,9 +1,11 @@
 body {
     margin: 0;
+    background-color: rgba(12, 118, 240, 0.671);
 }
 
-.header {
-    background-color: #eee;
+.header{
+    color: rgba(48, 48, 92, 0.712)
+
 }
 
 .header-title {
@@ -14,7 +16,7 @@ body {
 
 .content {
     min-height: 80vh;
-    padding: 20px 0;
+    padding: 20px 0px;
 }
 
 .inputWrapper {
@@ -46,4 +48,9 @@ body {
     border-radius: 15px;
     height: 3rem;
     text-align: center;
+}
+
+.treatmentSaying{
+    text-align: right;
+    font-size:1.5rem;
 }

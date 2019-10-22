@@ -1,14 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-//const bcrypt = require("bcrypt");
-const app = express();
 const port = 3000;
 const session = require('express-session');
-const Sequelize = require('sequelize');
-const Op = Sequelize.Op;
-//const models = require('./models');
-const accountRouter = require('./routes/account');
-const pgp = require('pg-promise')();
+const models = require("./models");
+const app = express();
 
 app.set("view engine", "pug");
 
@@ -23,10 +18,9 @@ app.use(
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use("/account", accountRouter);
 
 app.get("/", function(req, res) {
-    res.render("index", { title: "Hey", message: "Howdy!" });
+    res.render("index");
 });
 
 
@@ -39,7 +33,21 @@ app.get ('/logon', function(req, res) {
 app.get('/register', function(req, res) {
     res.render('register')
 });
-
+app.get("/Symptoms", async(req,res)=>{
+    let data = {};
+    data.symptoms = await models.Symptoms.findAll();
+    res.render("symptomspage",data);
+});
+app.get("/Symptoms/:id", async(req,res)=>{
+    console.log("fuck");
+    let data = {};
+    console.log(req.params.id)
+    data.treat =  await models.Treatments.findOne({
+      where: { id: req.params.id }
+      
+    });
+    res.render("treatmentpage",data);   
+});
 app.listen(port, () => {
     console.log(`Port ${port} is listening`);
 });

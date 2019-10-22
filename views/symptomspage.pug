@@ -1,0 +1,8 @@
+extend layout
+block content 
+  ul  
+    each symp in symptoms
+      li 
+        - var symptUrl = '/Symptoms/' + symp.id
+        a(href=symptUrl)= symp.symptom_name
+        p= symp.symptom_desc
