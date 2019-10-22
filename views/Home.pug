@@ -1,3 +1,20 @@
-extend homelayout
+extend ../base
 
-block content
+block base
+  .container
+    .row
+      .col
+        h1 AutoMD - Home Page 
+        if registeredSuccessfully
+          .alert.alert-success You have registered successfully, now you may log in.
+        form(method="POST" action="/account/login")
+          .form-group
+            label(for='email') Car Make
+            input#email.form-control(name="email" type="text" aria-describedby="emailHelp" placeholder="Enter email")
+        button.btn.btn-primary Car Make
+          .form-group
+            label(for='password') Car Model
+            input#password.form-control(name="password" type="password" aria-describedby="passwordHelp" placeholder="Enter password")
+          button.btn.btn-primary Car Model
+
+
