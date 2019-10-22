@@ -4,10 +4,16 @@ body {
     background-size: cover;
 }
 
-.header {
-    background-color: transparent;
+.header{
+    background-color: transparent!important;
 }
 
+.nav-link {
+    color:black !important;
+    font-size: 25px;
+    font-family: 'Roboto', sans-serif;
+
+}
 .header-title {
     font-size: 60px;
     margin: 0;
