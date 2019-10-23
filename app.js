@@ -112,14 +112,10 @@ app.listen(port, () => {
 app.get ('/home', async function (req, res)  {
     let data = {}
     data.vehicles = await models.vehicles.findAll();
-    // data.symptoms = await models.symptoms.findAll();
+    data.symptoms = await models.Symptoms.findAll();
     res.render('Home', data)
+    
 });
-// app.get ('/home', async function (req, res) {
-//     let data = {}
-//     data.symptoms = await models.symptoms.findAll();
-//     res.render('Home', data)
-// });
 
 app.get ('/logon', function(req, res) {
     res.render('Home')
