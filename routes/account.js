@@ -13,7 +13,6 @@ const db = require("../database");
 // router.use(checkIsLoggedIn);
 
 // router.get("/", (req, res) => {
-//     console.log("THE FORCE AWAKENS");
 //     res.render("account");
 // });
 

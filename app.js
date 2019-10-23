@@ -50,7 +50,6 @@ app.get("/logout", (req, res) => {
 app.post("/login", async function(req, res) {
     let emailAddress = req.body.email;
     let password = req.body.password;
-    console.log("EMAIL = " + emailAddress + " | Password = " + password)
     models.users.findOne({
         where: {
             email: emailAddress
