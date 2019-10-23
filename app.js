@@ -45,13 +45,12 @@ app.get('/register', async (req, res) => {
     res.render('register')
 });
 
-app.post('/cmake', (req, res)  => {
-    
-    let category =  req.body.category
-    
+app.post('/submit-complaint', (req, res)  => {
+    console.log(req.body)
+    // let category =  req.body.category 
 
-    data.models.vehicles.findall().then((cmake) => 
+    // data.models.vehicles.findall().then((cmake) => 
 
-    res.json(cmake))
+    // res.json(cmake))
     
 });
