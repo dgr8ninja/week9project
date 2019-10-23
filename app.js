@@ -11,6 +11,7 @@ const models = require('./models');
 const accountRouter = require('./routes/account');
 const pgp = require('pg-promise')();
 
+
 app.set("view engine", "pug");
 
 app.use(
@@ -107,3 +108,19 @@ app.post("/register", async function(req, res) {
 app.listen(port, () => {
     console.log(`Port ${port} is listening`);
 });
+
+app.get ('/home', async function (req, res)  {
+    let data = {}
+    data.vehicles = await models.vehicles.findAll();
+    res.render('Home', data)
+});
+
+app.get ('/logon', function(req, res) {
+    res.render('Home')
+});
+
+app.get('/register', async (req, res) => {
+    res.render('register')
+});
+
+

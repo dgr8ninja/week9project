@@ -1,11 +1,19 @@
 body {
     margin: 0;
+    background-image: url(/images/tools_3.jpeg);
+    background-size: cover;
 }
 
-.header {
-    background-color: #eee;
+.header{
+    background-color: transparent!important;
 }
 
+.nav-link {
+    color:black !important;
+    font-size: 25px;
+    font-family: 'Roboto', sans-serif;
+
+}
 .header-title {
     font-size: 60px;
     margin: 0;
@@ -47,3 +55,10 @@ body {
     height: 3rem;
     text-align: center;
 }
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }
+  
