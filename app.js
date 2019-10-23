@@ -36,6 +36,7 @@ app.use("/account", accountRouter);
 
 app.get("/login", (req, res) => {
     let data = {};
+    console.log("TEXAS A&M - MISSISSIPPI STATE")
     if (req.query.registeredSuccessfully) data.registeredSuccessfully = true;
     if (req.query.loggedOutSuccessfully) data.loggedOutSuccessfully = true;
     res.render("account/login", data);
@@ -49,23 +50,30 @@ app.get("/logout", (req, res) => {
     res.redirect("/login?loggedOutSuccessfully=true");
 });
 
-app.post("/login", async(req, res) => {
-    try {
-        // check user exists in db
-        let dbUser = await db.checkForUser(req.body.email);
-        if (!dbUser) throw new Error("Login failed");
-        bcrypt.compare(req.body.password, dbUser.password, (err, same) => {
-            if (err) throw err;
-            // check the password matches
-            if (!same) throw new Error("Incorrect password");
-            // login and redirect (save user_id to session, go to account)
-            req.session.user_id = dbUser.id;
-            res.redirect("/account");
-        });
-    } catch (e) {
-        res.send('NOT WORKING:  IN THE CATCH OF app.post("/login")');
-    }
-});
+app.post("/login", async function(req, res) {
+    let emailAddress = req.body.email;
+    let password = req.body.password;
+    console.log("EMAIL = " + emailAddress + " | Password = " + password)
+    models.users.findOne({
+        where: {
+            email: emailAddress
+        }
+    }).then((email) => {
+        if (!email) {
+            //res.status(500).json({ message: 'This E-Mail address is not found, please try again.' });
+            res.redirect("/login");
+        } else {
+            bcrypt.compare(req.body.password, password, (err, same) => {
+                if (err) throw err;
+                if (!same) res.redirect("/login");
+                console.log("TEXAS A&M - UTSA");
+                //if (!same) throw new Error("Incorrect Password!");
+                req.session.user_id = email.dataValues;
+                res.redirect("/account");
+            })
+        }
+    })
+})
 
 app.post("/register", async function(req, res) {
     let firstName = req.body.firstName;
