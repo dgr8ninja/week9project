@@ -27,10 +27,11 @@ block base
                     option= car.year               
               
         
-            //- h4.spacing Symptoms
-            //- select#symptoms.form-control(name='symptoms')
-            //-     each so in symptoms
-            //-         option= so.symptoms
+            h4.spacing Symptoms
+            hr
+            select#symptomname.form-control(name='Symptoms')
+                each so in symptoms
+                    option= so.symptom_name
                
             hr 
             button(type='submit') Submit All for Diagnosis
