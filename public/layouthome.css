@@ -10,3 +10,12 @@ body {
     justify-content: center;
     margin-top: 20vh;
 }
+a{
+
+    font-size: 30px;
+    font-display: bold;
+    color: black;
+    margin-top: 25px;
+    margin-right: 30px;
+
+}
