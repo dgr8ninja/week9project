@@ -21,17 +21,17 @@ block base
                 
          
             h4.spacing Car Year
-            select(name='carYear')
-                option#carYear(value='' disabled='' selected='') Car Year
-                input(type='hidden' name='year' value='{{persistedUser.id}}')
-                input(type='text' name='cy' placeholder='Enter Description')
+            hr
+            select#carYear.form-control(name='carYear')
+                each car in vehicles
+                    option= car.year               
               
         
-            h4.spacing Symptoms
-            select(name='symptoms')
-                option#symptoms(value='' disabled='' selected='') Symptoms
-                input(type='hidden' name='symptoms' value='{{persistedUser.id}}')
-                input(type='text' name='symp' placeholder='Enter Description')
+            //- h4.spacing Symptoms
+            //- select#symptoms.form-control(name='symptoms')
+            //-     each so in symptoms
+            //-         option= so.symptoms
+               
             hr 
             button(type='submit') Submit All for Diagnosis
 
