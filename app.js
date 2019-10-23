@@ -41,15 +41,14 @@ app.get("/Symptoms", async(req,res)=>{
     res.render("symptomspage",data);
 });
 app.get("/Symptoms/:id", async(req,res)=>{
-    console.log("fuck");
     let data = {};
-    console.log(req.params.id)
     data.treat =  await models.Treatments.findOne({
       where: { id: req.params.id }
       
     });
     res.render("treatmentpage",data);   
 });
+
 app.listen(port, () => {
     console.log(`Port ${port} is listening`);
 });

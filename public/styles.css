@@ -1,20 +1,16 @@
 body {
     margin: 0;
-<<<<<<< HEAD
     background-color: rgba(12, 118, 240, 0.671);
 }
 
 .header{
-    color: rgba(48, 48, 92, 0.712)
 
-=======
     background-image: url(/images/tools_3.jpeg);
     background-size: cover;
 }
 
 .header{
     background-color: transparent!important;
->>>>>>> 905f1ae33c7f563b6f1e97daccf08e662bcc57b2
 }
 
 .nav-link {
@@ -64,17 +60,8 @@ body {
     height: 3rem;
     text-align: center;
 }
-<<<<<<< HEAD
 
 .treatmentSaying{
     text-align: right;
     font-size:1.5rem;
 }
-=======
-.center {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
-  }
->>>>>>> 905f1ae33c7f563b6f1e97daccf08e662bcc57b2
