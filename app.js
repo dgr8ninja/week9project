@@ -32,11 +32,10 @@ app.get("/register", (req, res) => {
     res.render("account/register");
 });
 
-app.use("/account", accountRouter);
+//app.use("/account", accountRouter);
 
 app.get("/login", (req, res) => {
     let data = {};
-    console.log("TEXAS A&M - MISSISSIPPI STATE")
     if (req.query.registeredSuccessfully) data.registeredSuccessfully = true;
     if (req.query.loggedOutSuccessfully) data.loggedOutSuccessfully = true;
     res.render("account/login", data);
@@ -50,6 +49,7 @@ app.get("/logout", (req, res) => {
     res.redirect("/login?loggedOutSuccessfully=true");
 });
 
+
 app.post("/login", async function(req, res) {
     let emailAddress = req.body.email;
     let password = req.body.password;
@@ -58,18 +58,16 @@ app.post("/login", async function(req, res) {
         where: {
             email: emailAddress
         }
-    }).then((email) => {
-        if (!email) {
-            //res.status(500).json({ message: 'This E-Mail address is not found, please try again.' });
+    }).then((user) => {
+        if (!user) {
             res.redirect("/login");
         } else {
-            bcrypt.compare(req.body.password, password, (err, same) => {
+            bcrypt.compare(password, user.password, (err, same) => {
                 if (err) throw err;
                 if (!same) res.redirect("/login");
                 console.log("TEXAS A&M - UTSA");
-                //if (!same) throw new Error("Incorrect Password!");
-                req.session.user_id = email.dataValues;
-                res.redirect("/account");
+                req.session.user_id = emailAddress;
+                res.redirect("/account/register"); // <=== needs to be updated to whatever our main page is called
             })
         }
     })
