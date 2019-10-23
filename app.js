@@ -101,3 +101,25 @@ app.post("/register", async function(req, res) {
 app.listen(port, () => {
     console.log(`Port ${port} is listening`);
 });
+
+app.get ('/Home', function(req, res) {
+    res.render('Home')
+});
+
+app.get ('/logon', function(req, res) {
+    res.render('Home')
+});
+
+app.get('/register', async (req, res) => {
+    res.render('register')
+});
+
+app.post('/submit-complaint', (req, res)  => {
+    console.log(req.body)
+    // let category =  req.body.category 
+
+    // data.models.vehicles.findall().then((cmake) => 
+
+    // res.json(cmake))
+    
+});
