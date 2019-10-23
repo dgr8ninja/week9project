@@ -1,59 +1,25 @@
 const pgp = require("pg-promise")();
-const db = pgp("postgres://localhost:5432/movies_pgpromise_prework");
+//const db = pgp("hansken.db.elephantsql.com/xbjrboem");
+//const db = pgp("postgres://localhost:5432/xbjrboem");
+//const db = pgp("postgres://localhost:5432/accounts");
 
-async function getAllMovies() {
-    return await db.any("select * from movies");
-}
-
-async function getMovie(id) {
-    return await db.one("select * from movies where id = $1", [id]);
-}
-
-async function getFavorites(userId) {
-    return await db.any(
-        "SELECT * FROM favorites INNER JOIN movies ON(favorites.movie_id = movies.id) WHERE user_id = $1;", [userId]
+function checkForUser(email) {
+    return db.oneOrNone(
+        "SELECT email, password, id FROM users WHERE email = $1", [email]
     );
 }
 
-async function registerUser(email, password) {
-    return await db.none("insert into users (email, password) values ($1, $2)", [
+function createUser(email, password, first_name, last_name) {
+    console.log("Email " + email + " | Password " + password + " | FirstName " + first_name + " | LastName " + last_name);
+    return db.none("INSERT INTO users (email, password, first_name, last_name) VALUES ($1, $2, $3, $4)", [
         email,
-        password
+        password,
+        first_name,
+        last_name
     ]);
 }
 
-async function login(email, password) {
-    try {
-        let user = await db.one("select * from users where email = $1", [email]);
-        if (user.password != password) {
-            throw new Error("Password incorrect");
-        }
-        return Promise.resolve(user);
-    } catch (e) {
-        console.error(e);
-        Promise.reject(e);
-    }
-}
-
-async function addToFavorites(movieId, userId) {
-    try {
-        console.log("adding to favorites");
-        console.log(movieId);
-        console.log(userId);
-        return await db.none(
-            "insert into favorites (movie_id, user_id) values ($1, $2)", [movieId, userId]
-        );
-    } catch (e) {
-        console.error(e);
-        Promise.reject(e);
-    }
-}
-
 module.exports = {
-    getAllMovies: getAllMovies,
-    getMovie: getMovie,
-    getFavorites: getFavorites,
-    registerUser: registerUser,
-    login: login,
-    addToFavorites: addToFavorites
+    checkForUser: checkForUser,
+    createUser: createUser
 };
