@@ -106,9 +106,13 @@ app.post("/register", async function(req, res) {
 
 
 
-    // res.render('Home')
-
-
+  
+app.get ('/Home', async function (req, res)  {
+    let data = {};
+    data.hello = await models.Symptoms.findAll();
+    console.log(data)
+    res.render('Home', data)
+});
 
 app.get ('/logon', function(req, res) {
     res.render('Home')
@@ -117,7 +121,7 @@ app.get ('/logon', function(req, res) {
 app.get('/register', async (req, res) => {
     res.render('register')
 });
-app.get('/Home', async (req,res)=>{
+app.get('/', async (req,res)=>{
     let data = {};
     data.symptoms = await models.Symptoms.findAll();
     res.render('Home',data)
@@ -140,5 +144,4 @@ app.listen(port, () => {
     console.log(`Port ${port} is listening`);
 });
 
-// app.get('/submit-complaint', (req, res)  => {
-//     })
+

@@ -32,6 +32,7 @@
     "pg": "^7.12.1",
     "pg-promise": "^9.3.3",
     "pug": "^2.0.4",
+    "pug-runtime": "^2.0.5",
     "sequelize": "^5.21.1"
   },
   "devDependencies": {
