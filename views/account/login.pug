@@ -7,7 +7,7 @@ block base
         h1 AutoMD - Login
         if registeredSuccessfully
           .alert.alert-success You have registered successfully, now you may log in.
-        form(method="POST" action="/account/login")
+        form(method="POST" action="/login")
           .form-group
             label(for='email') Email
             input#email.form-control(name="email" type="text" aria-describedby="emailHelp" placeholder="Enter email")
