@@ -103,15 +103,10 @@ app.listen(port, () => {
     console.log(`Port ${port} is listening`);
 });
 
-app.get ('/home', function(req, res) {
-
-    models.vehicles.findAll().then((result) => {
-        console.log(result)
-        res.render('Home', {result:result})
-        
-    });
-    // res.render('Home')
-
+app.get ('/home', async function (req, res)  {
+    let data = {}
+    data.vehicles = await models.vehicles.findAll();
+    res.render('Home', data)
 });
 
 app.get ('/logon', function(req, res) {
@@ -122,5 +117,4 @@ app.get('/register', async (req, res) => {
     res.render('register')
 });
 
-// app.get('/submit-complaint', (req, res)  => {
-//     })
+
