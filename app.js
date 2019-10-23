@@ -33,8 +33,6 @@ app.get("/register", (req, res) => {
     res.render("account/register");
 });
 
-//app.use("/account", accountRouter);
-
 app.get("/login", (req, res) => {
     let data = {};
     if (req.query.registeredSuccessfully) data.registeredSuccessfully = true;
@@ -44,8 +42,6 @@ app.get("/login", (req, res) => {
 
 app.get("/logout", (req, res) => {
     let data = {};
-    // data.email = "";
-    // data.password = "";
     req.session.destroy();
     res.redirect("/login?loggedOutSuccessfully=true");
 });
@@ -66,9 +62,8 @@ app.post("/login", async function(req, res) {
             bcrypt.compare(password, user.password, (err, same) => {
                 if (err) throw err;
                 if (!same) res.redirect("/login");
-                console.log("TEXAS A&M - UTSA");
                 req.session.user_id = emailAddress;
-                res.redirect("/account/register"); // <=== needs to be updated to whatever our main page is called
+                res.redirect("home");
             })
         }
     })
@@ -109,20 +104,18 @@ app.listen(port, () => {
     console.log(`Port ${port} is listening`);
 });
 
-app.get ('/home', async function (req, res)  {
+app.get('/home', async function(req, res) {
     let data = {}
     data.vehicles = await models.vehicles.findAll();
     data.symptoms = await models.Symptoms.findAll();
     res.render('Home', data)
-    
+
 });
 
-app.get ('/logon', function(req, res) {
+app.get('/logon', function(req, res) {
     res.render('Home')
 });
 
-app.get('/register', async (req, res) => {
+app.get('/register', async(req, res) => {
     res.render('register')
 });
-
-
