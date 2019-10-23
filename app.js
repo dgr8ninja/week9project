@@ -37,7 +37,7 @@ app.get("/register", (req, res) => {
     res.render("account/register");
 });
 
-app.use("/account", accountRouter);
+//app.use("/account", accountRouter);
 
 app.get("/login", (req, res) => {
     let data = {};
@@ -54,23 +54,29 @@ app.get("/logout", (req, res) => {
     res.redirect("/login?loggedOutSuccessfully=true");
 });
 
-app.post("/login", async(req, res) => {
-    try {
-        // check user exists in db
-        let dbUser = await db.checkForUser(req.body.email);
-        if (!dbUser) throw new Error("Login failed");
-        bcrypt.compare(req.body.password, dbUser.password, (err, same) => {
-            if (err) throw err;
-            // check the password matches
-            if (!same) throw new Error("Incorrect password");
-            // login and redirect (save user_id to session, go to account)
-            req.session.user_id = dbUser.id;
-            res.redirect("/account");
-        });
-    } catch (e) {
-        res.send('NOT WORKING:  IN THE CATCH OF app.post("/login")');
-    }
-});
+
+app.post("/login", async function(req, res) {
+    let emailAddress = req.body.email;
+    let password = req.body.password;
+    console.log("EMAIL = " + emailAddress + " | Password = " + password)
+    models.users.findOne({
+        where: {
+            email: emailAddress
+        }
+    }).then((user) => {
+        if (!user) {
+            res.redirect("/login");
+        } else {
+            bcrypt.compare(password, user.password, (err, same) => {
+                if (err) throw err;
+                if (!same) res.redirect("/login");
+                console.log("TEXAS A&M - UTSA");
+                req.session.user_id = emailAddress;
+                res.redirect("/account/register"); // <=== needs to be updated to whatever our main page is called
+            })
+        }
+    })
+})
 
 app.post("/register", async function(req, res) {
     let firstName = req.body.firstName;
@@ -104,14 +110,12 @@ app.post("/register", async function(req, res) {
 })
 
 
-
-
-  
-app.get ('/Home', async function (req, res)  {
-    let data = {};
-    data.hello = await models.Symptoms.findAll();
-    console.log(data)
+app.get ('/home', async function (req, res)  {
+    let data = {}
+    data.vehicles = await models.vehicles.findAll();
+    data.symptoms = await models.Symptoms.findAll();
     res.render('Home', data)
+    
 });
 
 app.get ('/logon', function(req, res) {
