@@ -5,33 +5,9 @@ block base
     .row
       .col
         h1 AutoMD - Diagnosis  
-
-        form(action='/submit-complaint' method='POST')
-            h4.spacing Car Make
-            select(name='carMake')
-                option#userPageButton(value='' disabled='' selected='') Car Make
-                input(type='hidden' name='make' value='{{persistedUser.id}}')
-                input(type='text' name='description' placeholder='Enter Description')
-                
-         
-            h4.spacing Car Model
-            select(name='carModel')
-                option#userPageButton(value='' disabled='' selected='') Car Model
-                input(type='hidden' name='model' value='{{persistedUser.id}}')
-                input(type='text' name='description' placeholder='Enter Description')
-                
-         
-            h4.spacing Car Year
-            select(name='carYear')
-                option#userPageButton(value='' disabled='' selected='') Car Year
-                input(type='hidden' name='year' value='{{persistedUser.id}}')
-                input(type='text' name='description' placeholder='Enter Description')
-              
+        form(action='/submit-complaint' method='POST') 
+            h1 these are the sym   
+            select#some.form-control(name='some')
+                each so in Symptoms  
+                    option= so.symptom_name  
         
-            h4.spacing Symptoms
-            select(name='symptoms')
-                option#userPageButton(value='' disabled='' selected='') Symptoms
-                input(type='hidden' name='symptoms' value='{{persistedUser.id}}')
-                input(type='text' name='description' placeholder='Enter Description')
-            hr 
-            button(type='submit') Submit All for Diagnosis

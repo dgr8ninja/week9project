@@ -2,17 +2,13 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const port = 3000;
 const session = require('express-session');
-<<<<<<< HEAD
-const models = require("./models");
-const app = express();
-=======
 const db = require("./database");
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 const models = require('./models');
 const accountRouter = require('./routes/account');
 const pgp = require('pg-promise')();
->>>>>>> 7cc646b096ea80d34d4a71b3a7c61e01287d7790
+const app = express();
 
 
 app.set("view engine", "pug");
@@ -28,13 +24,11 @@ app.use(
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));
 
-<<<<<<< HEAD
 
 app.get("/", function(req, res) {
     res.render("index");
 });
 
-=======
 app.get("/", function(req, res) {
     res.render("index");
 });
@@ -109,21 +103,12 @@ app.post("/register", async function(req, res) {
     })
 })
 
-app.listen(port, () => {
-    console.log(`Port ${port} is listening`);
-});
->>>>>>> 7cc646b096ea80d34d4a71b3a7c61e01287d7790
 
-app.get ('/home', function(req, res) {
 
-    models.vehicles.findAll().then((result) => {
-        console.log(result)
-        res.render('Home', {result:result})
-        
-    });
+
     // res.render('Home')
 
-});
+
 
 app.get ('/logon', function(req, res) {
     res.render('Home')
@@ -131,6 +116,11 @@ app.get ('/logon', function(req, res) {
 
 app.get('/register', async (req, res) => {
     res.render('register')
+});
+app.get('/Home', async (req,res)=>{
+    let data = {};
+    data.symptoms = await models.Symptoms.findAll();
+    res.render('Home',data)
 });
 app.get("/Symptoms", async(req,res)=>{
     let data = {};
