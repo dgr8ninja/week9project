@@ -6,9 +6,6 @@ const app = express();
 const session = require('express-session');
 const Sequelize = require('sequelize');
 const models = require('./models');
-const accountRouter = require('./routes/account');
-const app = express();
-const pgp = require('pg-promise')();
 const router = express.Router();
 
 
@@ -52,30 +49,14 @@ app.get ('/home', async function (req, res)  {
     res.render('Home', data)  
 });
 app.get('/register', async (req, res) => {
+
+app.get('/register', async(req, res) => {
     res.render('register')
 });
 
-
-app.post("/login", async function(req, res) {
-    let emailAddress = req.body.email;
-    let password = req.body.password;
-    models.users.findOne({
-        where: {
-            email: emailAddress
-        }
-    }).then((user) => {
-        if (!user) {
-            res.redirect("/login");
-        } else {
-            bcrypt.compare(password, user.password, (err, same) => {
-                if (err) throw err;
-                if (!same) res.redirect("/login");
-                req.session.user_id = emailAddress;
-                res.redirect("home");
-            })
-        }
-    })
-})
+app.get("/register", (req, res) => {
+    res.render("account/register");
+});
 app.post("/register", async function(req, res) {
     let firstName = req.body.firstName;
     let lastName = req.body.lastName;
@@ -143,12 +124,69 @@ app.get('/dashboard', async function(req, res) {
     data.symptoms = await models.Symptoms.findAll();
     res.render('dashboard', data)
 
+app.get("/login", (req, res) => {
+    let data = {};
+    if (req.query.registeredSuccessfully) data.registeredSuccessfully = true;
+    if (req.query.loggedOutSuccessfully) data.loggedOutSuccessfully = true;
+    res.render("account/login", data);
 });
+app.post("/login", async function(req, res) {
+    let emailAddress = req.body.email;
+    let password = req.body.password;
+    models.users.findOne({
+        where: {
+            email: emailAddress
+        }
+    }).then((user) => {
+        if (!user) {
+            res.redirect("/login");
+        } else {
+            bcrypt.compare(password, user.password, (err, same) => {
+                if (err) throw err;
+                if (!same) res.redirect("/login");
+                req.session.user_id = emailAddress;
+                res.redirect("home");
+            })
+        }
+    })
+})
 
-app.get('/logon', function(req, res) {
-    res.render('Home')
+app.get("/logout", (req, res) => {
+    let data = {};
+    req.session.destroy();
+    res.redirect("/login?loggedOutSuccessfully=true");
 });
 
 app.get('/register', async(req, res) => {
     res.render('register')
 });
+app.post('/Treatment', function (req, res) {
+
+    let symptomid = req.body.Symptoms
+    console.log(symptomid)
+    res.redirect(`/Symptoms/${symptomid}`)
+});
+
+app.get("/Symptoms/:id", async(req,res)=>{
+    let data = {};
+    data.treat =  await models.Treatments.findOne({
+      where: { id: req.params.id }    
+    });
+    res.render("treatmentpage",data);   
+});
+
+app.get('/home', async function(req, res) {
+    let data = {}
+    data.vehicles = await models.vehicles.findAll();
+    data.symptoms = await models.Symptoms.findAll();
+    res.render('Home', data)
+});
+  
+app.get('/dashboard', async function(req, res) {
+    let data = {}
+    data.symptoms = await models.Symptoms.findAll();
+    res.render('dashboard', data)
+});
+
+app.listen(port, () => {
+    console.log(`Port ${port} is listening`);
