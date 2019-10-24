@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require("bcrypt");
 const app = express();
-const port = 3000;
+const port = 3022;
 const session = require('express-session');
 const db = require("./database");
 const Sequelize = require('sequelize');
@@ -10,6 +10,7 @@ const Op = Sequelize.Op;
 const models = require('./models');
 const accountRouter = require('./routes/account');
 const pgp = require('pg-promise')();
+const router = express.Router();
 
 
 app.set("view engine", "pug");
@@ -45,6 +46,7 @@ app.get("/logout", (req, res) => {
     req.session.destroy();
     res.redirect("/login?loggedOutSuccessfully=true");
 });
+
 
 
 app.post("/login", async function(req, res) {
@@ -108,6 +110,12 @@ app.get('/home', async function(req, res) {
     data.vehicles = await models.vehicles.findAll();
     data.symptoms = await models.Symptoms.findAll();
     res.render('Home', data)
+
+});
+app.get('/dashboard', async function(req, res) {
+    let data = {}
+    data.symptoms = await models.Symptoms.findAll();
+    res.render('dashboard', data)
 
 });
 
