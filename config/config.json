@@ -4,23 +4,15 @@
     "password": "HRbwpqzSsLa7rv7wbaE9_1ZEsQXwSfIo",
     "database": "xbjrboem",
     "host": "hansken.db.elephantsql.com",
-    "dialect": "postgres",
-    "operatorsAliases": false
-  },
-  "test": {
-    "username": "xbjrboem",
-    "password": "HRbwpqzSsLa7rv7wbaE9_1ZEsQXwSfIo",
-    "database": "xbjrboem",
-    "host": "hansken.db.elephantsql.com",
-    "dialect": "postgres",
-    "operatorsAliases": false
+    "dialect": "postgres"
+    
   },
   "production": {
     "username": "xbjrboem",
     "password": "HRbwpqzSsLa7rv7wbaE9_1ZEsQXwSfIo",
     "database": "xbjrboem",
     "host": "hansken.db.elephantsql.com",
-    "dialect": "postgres",
-    "operatorsAliases": false
+    "dialect": "postgres"
+    
   }
 }
