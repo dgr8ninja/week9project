@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const port = 3000;
+const port = 3027;
 const bcrypt = require("bcrypt");
 const app = express();
 const session = require('express-session');
@@ -62,6 +62,16 @@ app.post("/register", async function(req, res) {
         }
     })
 })
+
+app.post('/dashboard', function (req, res){
+    console.log(req.body.AddSym)
+    let something = models.Symptom_history.build({
+        user_input: req.body.AddSym
+    })
+    something.save()
+    console.log(something)
+})
+    
 app.get("/login", (req, res) => {
     let data = {};
     if (req.query.registeredSuccessfully) data.registeredSuccessfully = true;
