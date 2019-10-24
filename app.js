@@ -1,11 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const port = 3000;
+const bcrypt = require("bcrypt");
+const app = express();
 const session = require('express-session');
 const Sequelize = require('sequelize');
 const models = require('./models');
-const accountRouter = require('./routes/account');
-const app = express();
+const router = express.Router();
+
 
 app.set("view engine", "pug");
 
@@ -24,55 +26,14 @@ app.use(
 app.get("/", function(req, res) {
     res.render("index");
 });
-app.get("/register", (req, res) => {
-    res.render("account/register");
-});
-//app.use("/account", accountRouter);
-app.get("/login", (req, res) => {
-    let data = {};
-    if (req.query.registeredSuccessfully) data.registeredSuccessfully = true;
-    if (req.query.loggedOutSuccessfully) data.loggedOutSuccessfully = true;
-    res.render("account/login", data);
-});
-app.get("/logout", (req, res) => {
-    let data = {};
-    // data.email = "";
-    // data.password = "";
-    req.session.destroy();
-    res.redirect("/login?loggedOutSuccessfully=true");
-});
-app.get ('/home', async function (req, res)  {
-    let data = {}
-    data.vehicles = await models.vehicles.findAll();
-    data.symptoms = await models.Symptoms.findAll();
-    res.render('Home', data)  
-});
-app.get('/register', async (req, res) => {
+
+app.get('/register', async(req, res) => {
     res.render('register')
 });
 
-app.post("/login", async function(req, res) {
-    let emailAddress = req.body.email;
-    let password = req.body.password;
-    console.log("EMAIL = " + emailAddress + " | Password = " + password)
-    models.users.findOne({
-        where: {
-            email: emailAddress
-        }
-    }).then((user) => {
-        if (!user) {
-            res.redirect("/login");
-        } else {
-            bcrypt.compare(password, user.password, (err, same) => {
-                if (err) throw err;
-                if (!same) res.redirect("/login");
-                console.log("TEXAS A&M - UTSA");
-                req.session.user_id = emailAddress;
-                res.redirect("/account/register"); // <=== needs to be updated to whatever our main page is called
-            })
-        }
-    })
-})
+app.get("/register", (req, res) => {
+    res.render("account/register");
+});
 app.post("/register", async function(req, res) {
     let firstName = req.body.firstName;
     let lastName = req.body.lastName;
@@ -104,17 +65,46 @@ app.post("/register", async function(req, res) {
     })
 })
 
-// app.get("/Symptoms", async(req,res)=>{
-//     let data = {};
-//     data.symptoms = await models.Symptoms.findAll();
-//     res.render("symptomspage",data);
-// });
+app.get("/login", (req, res) => {
+    let data = {};
+    if (req.query.registeredSuccessfully) data.registeredSuccessfully = true;
+    if (req.query.loggedOutSuccessfully) data.loggedOutSuccessfully = true;
+    res.render("account/login", data);
+});
+app.post("/login", async function(req, res) {
+    let emailAddress = req.body.email;
+    let password = req.body.password;
+    models.users.findOne({
+        where: {
+            email: emailAddress
+        }
+    }).then((user) => {
+        if (!user) {
+            res.redirect("/login");
+        } else {
+            bcrypt.compare(password, user.password, (err, same) => {
+                if (err) throw err;
+                if (!same) res.redirect("/login");
+                req.session.user_id = emailAddress;
+                res.redirect("home");
+            })
+        }
+    })
+})
+
+app.get("/logout", (req, res) => {
+    let data = {};
+    req.session.destroy();
+    res.redirect("/login?loggedOutSuccessfully=true");
+});
+
 app.post('/Treatment', function (req, res) {
 
     let symptomid = req.body.Symptoms
     console.log(symptomid)
     res.redirect(`/Symptoms/${symptomid}`)
-})
+});
+
 app.get("/Symptoms/:id", async(req,res)=>{
     let data = {};
     data.treat =  await models.Treatments.findOne({
@@ -122,6 +112,19 @@ app.get("/Symptoms/:id", async(req,res)=>{
     });
     res.render("treatmentpage",data);   
 });
+
+app.get('/home', async function(req, res) {
+    let data = {}
+    data.vehicles = await models.vehicles.findAll();
+    data.symptoms = await models.Symptoms.findAll();
+    res.render('Home', data)
+});
+  
+app.get('/dashboard', async function(req, res) {
+    let data = {}
+    data.symptoms = await models.Symptoms.findAll();
+    res.render('dashboard', data)
+});
+
 app.listen(port, () => {
     console.log(`Port ${port} is listening`);
-});

@@ -4,14 +4,12 @@ const pgp = require("pg-promise")();
 //const db = pgp("postgres://localhost:5432/accounts");
 
 function checkForUser(email) {
-    console.log("INSIDE checkForUser");
     return db.oneOrNone(
         "SELECT email, password, id FROM users WHERE email = $1", [email]
     );
 }
 
 function createUser(email, password, first_name, last_name) {
-    console.log("Email " + email + " | Password " + password + " | FirstName " + first_name + " | LastName " + last_name);
     return db.none("INSERT INTO users (email, password, first_name, last_name) VALUES ($1, $2, $3, $4)", [
         email,
         password,

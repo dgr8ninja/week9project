@@ -1,6 +1,7 @@
 body {
 
-    background-color: lightblue;
+    background-image: url(/images/tools_3.jpeg);
+    background-size: cover;
 
 }
 .container{
@@ -8,4 +9,13 @@ body {
     display: flex;
     justify-content: center;
     margin-top: 20vh;
+}
+a{
+
+    font-size: 30px;
+    font-display: bold;
+    color: black;
+    margin-top: 25px;
+    margin-right: 30px;
+
 }
