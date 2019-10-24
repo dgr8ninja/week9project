@@ -1,3 +1,6 @@
-extend layout
+extend pagelayout
 block content 
     p= treat.treatment_desc
+    img(src=`${img.image}` style='width:200px height:200px  ')
+    p= img.image
+  

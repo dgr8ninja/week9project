@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const port = 3027;
+const port = 3000;
 const bcrypt = require("bcrypt");
 const app = express();
 const session = require('express-session');
@@ -24,9 +24,6 @@ app.use(
 
 app.get("/", function(req, res) {
     res.render("index");
-});
-app.get('/register', async(req, res) => {
-    res.render('register')
 });
 app.get("/register", (req, res) => {
     res.render("account/register");
@@ -112,8 +109,14 @@ app.post('/Treatment', function (req, res) {
 app.get("/Symptoms/:id", async(req,res)=>{
     let data = {};
     data.treat =  await models.Treatments.findOne({
-      where: { id: req.params.id }    
+        where: { id: req.params.id }
     });
+    data.img = await models.Images.findOne({
+        where: { id: req.params.id}
+    });
+            
+    
+    
     res.render("treatmentpage",data);   
 });
 app.get ('/home', async function (req, res)  {
