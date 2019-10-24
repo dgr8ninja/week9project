@@ -3,38 +3,23 @@ extend basehome
 block base
   .container
     .row
-      .col
+      .col    
         h1 AutoMD - Diagnosis
-        form(action='/submit-complaint' method='POST')
-            h4.spacing Car Make
-            hr
-            select#carMake.form-control(name='carMake')
-                each car in vehicles
-                    option= car.make
-                
             h4.spacing Car Model
             hr
             select#carModel.form-control(name='carModel')
                 each car in vehicles
-                    option= car.model
-               
-                
-         
+                    option= car.model    
             h4.spacing Car Year
             hr
             select#carYear.form-control(name='carYear')
                 each car in vehicles
-                    option= car.year               
-              
-        
+                    option= car.year                 
             h4.spacing Symptoms
             hr
+        form(method="POST" action="/Treatment")
             select#symptomname.form-control(name='Symptoms')
                 each so in symptoms
-                    option= so.symptom_name
-               
-            hr 
-            button(type='submit') Submit All for Diagnosis
-
-
-
+                    option(value=so.id)= so.symptom_name                              
+            hr              
+            button.btn.btn-primary( type='submit') Submit
