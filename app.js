@@ -117,6 +117,7 @@ app.get('/dashboard', async function(req, res) {
     let data = {}
     data.symptoms = await models.Symptoms.findAll();
     res.render('dashboard', data)
+});
 
     app.listen(port, () => {
         console.log(`Port ${port} is listening`)});
