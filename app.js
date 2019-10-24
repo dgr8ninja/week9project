@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require("bcrypt");
 const app = express();
-const port = 3022;
+const port = 3024;
 const session = require('express-session');
 const db = require("./database");
 const Sequelize = require('sequelize');
@@ -99,6 +99,15 @@ app.post("/register", async function(req, res) {
             })
         }
     })
+})
+
+app.post('/dashboard', function (req, res){
+    console.log(req.body.AddSym)
+    let something = models.Symptom_history.build({
+        user_input: req.body.AddSym
+    })
+    something.save()
+    console.log(something)
 })
 
 app.listen(port, () => {
