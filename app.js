@@ -1,13 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const port = 3027;
+const port = 3000;
 const bcrypt = require("bcrypt");
 const app = express();
 const session = require('express-session');
 const Sequelize = require('sequelize');
 const models = require('./models');
 const router = express.Router();
-
 
 app.set("view engine", "pug");
 
@@ -26,14 +25,10 @@ app.use(
 app.get("/", function(req, res) {
     res.render("index");
 });
-
-app.get('/register', async(req, res) => {
-    res.render('register')
-});
-
 app.get("/register", (req, res) => {
     res.render("account/register");
 });
+//app.use("/account", accountRouter);
 app.post("/register", async function(req, res) {
     let firstName = req.body.firstName;
     let lastName = req.body.lastName;
@@ -100,41 +95,42 @@ app.post("/login", async function(req, res) {
         }
     })
 })
-
 app.get("/logout", (req, res) => {
     let data = {};
     req.session.destroy();
     res.redirect("/login?loggedOutSuccessfully=true");
 });
-
 app.post('/Treatment', function (req, res) {
 
     let symptomid = req.body.Symptoms
     console.log(symptomid)
     res.redirect(`/Symptoms/${symptomid}`)
-});
-
+})
 app.get("/Symptoms/:id", async(req,res)=>{
     let data = {};
     data.treat =  await models.Treatments.findOne({
-      where: { id: req.params.id }    
+        where: { id: req.params.id }
     });
+    data.img = await models.Images.findOne({
+        where: { id: req.params.id}
+    });
+            
+    
+    
     res.render("treatmentpage",data);   
 });
-
-app.get('/home', async function(req, res) {
+app.get ('/home', async function (req, res)  {
     let data = {}
     data.vehicles = await models.vehicles.findAll();
     data.symptoms = await models.Symptoms.findAll();
-    res.render('Home', data)
+    res.render('Home', data)  
 });
-  
+
 app.get('/dashboard', async function(req, res) {
     let data = {}
     data.symptoms = await models.Symptoms.findAll();
     res.render('dashboard', data)
 });
 
-app.listen(port, () => {
-    console.log(`Port ${port} is listening`)
-});
+    app.listen(port, () => {
+        console.log(`Port ${port} is listening`)});
