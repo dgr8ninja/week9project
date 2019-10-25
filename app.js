@@ -113,14 +113,6 @@ app.get("/Symptoms/:id", async(req, res) => {
     data.treat = await models.Treatments.findOne({
         where: { id: req.params.id }
     });
-    res.render("treatmentpage", data);
-});
-
-app.get("/Symptoms/:id", async(req, res) => {
-    let data = {};
-    data.treat = await models.Treatments.findOne({
-        where: { id: req.params.id }
-    });
     data.img = await models.Images.findOne({
         where: { id: req.params.id }
     });
