@@ -26,10 +26,6 @@ app.get("/", function(req, res) {
     res.render("index");
 });
 
-// app.get('/register', async(req, res) => {
-//     res.render('register')
-// });
-
 app.get("/register", (req, res) => {
     res.render("account/register");
 });
@@ -109,7 +105,6 @@ app.get("/logout", (req, res) => {
 });
 
 app.post('/Treatment', function(req, res) {
-
     let symptomid = req.body.Symptoms
     console.log(symptomid)
     res.redirect(`/Symptoms/${symptomid}`)
@@ -123,11 +118,22 @@ app.get("/Symptoms/:id", async(req, res) => {
     res.render("treatmentpage", data);
 });
 
-app.get('/home', async function(req, res) {
+app.get("/Symptoms/:id", async(req,res)=>{
+    let data = {};
+    data.treat =  await models.Treatments.findOne({
+        where: { id: req.params.id }
+    });
+    data.img = await models.Images.findOne({
+        where: { id: req.params.id}
+    });
+    res.render("treatmentpage",data);   
+});
+
+app.get ('/home', async function (req, res)  {
     let data = {}
     data.vehicles = await models.vehicles.findAll();
     data.symptoms = await models.Symptoms.findAll();
-    res.render('Home', data)
+    res.render('Home', data)  
 });
 
 app.get('/dashboard', async function(req, res) {
@@ -137,5 +143,4 @@ app.get('/dashboard', async function(req, res) {
 });
 
 app.listen(port, () => {
-    console.log(`Port ${port} is listening`)
-});
+    console.log(`Port ${port} is listening`)});
