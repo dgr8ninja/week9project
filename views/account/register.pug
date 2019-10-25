@@ -1,21 +1,28 @@
-extend ../base
+extend ../basehome
 
 block base
     .container
         img(src='../../../images/automdlogo.png')
         h1 Register Your New Account
+        hr
+        
         form(method="POST" action="/register")
             div(classname="inputWrapper")
                 div
-                label(classname="labelText") E-Mail
+                label(classname="labelText") 
+                
                 input(classname="registerInput", name="email", type="email", placeholder="Email")
                 br
-                label(classname="labelText") Password
+                br
+                label(classname="labelText") 
                 input(classname="registerInput", name="password", type="password", placeholder="Password")
                 br
-                label(classname='labelText') First Name
+                br
+                label(classname='labelText') 
                 input(classname="registerInput", name="firstName", placeholder="First Name")
-                label(classname="labelText") Last Name
+                br
+                br
+                label(classname="labelText") 
                 input(classname="registerInput", name="lastName", placeholder="Last Name")
                 div
             button.btn.btn-primary(type='submit') Register
