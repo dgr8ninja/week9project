@@ -9,9 +9,9 @@ const models = require('./models');
 const router = express.Router();
 
 app.set("view engine", "pug");
-
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use(
     session({
         secret: "Week9Project",
@@ -25,10 +25,11 @@ app.use(
 app.get("/", function(req, res) {
     res.render("index");
 });
+
 app.get("/register", (req, res) => {
     res.render("account/register");
 });
-//app.use("/account", accountRouter);
+
 app.post("/register", async function(req, res) {
     let firstName = req.body.firstName;
     let lastName = req.body.lastName;
@@ -58,23 +59,24 @@ app.post("/register", async function(req, res) {
             })
         }
     })
-})
+});
 
-app.post('/dashboard', function (req, res){
+app.post('/dashboard', function(req, res) {
     console.log(req.body.AddSym)
     let something = models.Symptom_history.build({
         user_input: req.body.AddSym
     })
     something.save()
     console.log(something)
-})
-    
+});
+
 app.get("/login", (req, res) => {
     let data = {};
     if (req.query.registeredSuccessfully) data.registeredSuccessfully = true;
     if (req.query.loggedOutSuccessfully) data.loggedOutSuccessfully = true;
     res.render("account/login", data);
 });
+
 app.post("/login", async function(req, res) {
     let emailAddress = req.body.email;
     let password = req.body.password;
@@ -94,18 +96,28 @@ app.post("/login", async function(req, res) {
             })
         }
     })
-})
+});
+
 app.get("/logout", (req, res) => {
     let data = {};
     req.session.destroy();
     res.redirect("/login?loggedOutSuccessfully=true");
 });
-app.post('/Treatment', function (req, res) {
 
+app.post('/Treatment', function(req, res) {
     let symptomid = req.body.Symptoms
     console.log(symptomid)
     res.redirect(`/Symptoms/${symptomid}`)
-})
+});
+
+app.get("/Symptoms/:id", async(req, res) => {
+    let data = {};
+    data.treat = await models.Treatments.findOne({
+        where: { id: req.params.id }
+    });
+    res.render("treatmentpage", data);
+});
+
 app.get("/Symptoms/:id", async(req,res)=>{
     let data = {};
     data.treat =  await models.Treatments.findOne({
@@ -114,11 +126,9 @@ app.get("/Symptoms/:id", async(req,res)=>{
     data.img = await models.Images.findOne({
         where: { id: req.params.id}
     });
-            
-    
-    
     res.render("treatmentpage",data);   
 });
+
 app.get ('/home', async function (req, res)  {
     let data = {}
     data.vehicles = await models.vehicles.findAll();
@@ -132,5 +142,5 @@ app.get('/dashboard', async function(req, res) {
     res.render('dashboard', data)
 });
 
-    app.listen(port, () => {
-        console.log(`Port ${port} is listening`)});
+app.listen(port, () => {
+    console.log(`Port ${port} is listening`)});
