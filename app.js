@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const port = 3027;
+const port = 3000;
 const bcrypt = require("bcrypt");
 const app = express();
 const session = require('express-session');
@@ -8,11 +8,10 @@ const Sequelize = require('sequelize');
 const models = require('./models');
 const router = express.Router();
 
-
 app.set("view engine", "pug");
-
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use(
     session({
         secret: "Week9Project",
@@ -27,13 +26,14 @@ app.get("/", function(req, res) {
     res.render("index");
 });
 
-app.get('/register', async(req, res) => {
-    res.render('register')
-});
+// app.get('/register', async(req, res) => {
+//     res.render('register')
+// });
 
 app.get("/register", (req, res) => {
     res.render("account/register");
 });
+
 app.post("/register", async function(req, res) {
     let firstName = req.body.firstName;
     let lastName = req.body.lastName;
@@ -63,23 +63,24 @@ app.post("/register", async function(req, res) {
             })
         }
     })
-})
+});
 
-app.post('/dashboard', function (req, res){
+app.post('/dashboard', function(req, res) {
     console.log(req.body.AddSym)
     let something = models.Symptom_history.build({
         user_input: req.body.AddSym
     })
     something.save()
     console.log(something)
-})
-    
+});
+
 app.get("/login", (req, res) => {
     let data = {};
     if (req.query.registeredSuccessfully) data.registeredSuccessfully = true;
     if (req.query.loggedOutSuccessfully) data.loggedOutSuccessfully = true;
     res.render("account/login", data);
 });
+
 app.post("/login", async function(req, res) {
     let emailAddress = req.body.email;
     let password = req.body.password;
@@ -99,7 +100,7 @@ app.post("/login", async function(req, res) {
             })
         }
     })
-})
+});
 
 app.get("/logout", (req, res) => {
     let data = {};
@@ -107,19 +108,19 @@ app.get("/logout", (req, res) => {
     res.redirect("/login?loggedOutSuccessfully=true");
 });
 
-app.post('/Treatment', function (req, res) {
+app.post('/Treatment', function(req, res) {
 
     let symptomid = req.body.Symptoms
     console.log(symptomid)
     res.redirect(`/Symptoms/${symptomid}`)
 });
 
-app.get("/Symptoms/:id", async(req,res)=>{
+app.get("/Symptoms/:id", async(req, res) => {
     let data = {};
-    data.treat =  await models.Treatments.findOne({
-      where: { id: req.params.id }    
+    data.treat = await models.Treatments.findOne({
+        where: { id: req.params.id }
     });
-    res.render("treatmentpage",data);   
+    res.render("treatmentpage", data);
 });
 
 app.get('/home', async function(req, res) {
@@ -128,7 +129,7 @@ app.get('/home', async function(req, res) {
     data.symptoms = await models.Symptoms.findAll();
     res.render('Home', data)
 });
-  
+
 app.get('/dashboard', async function(req, res) {
     let data = {}
     data.symptoms = await models.Symptoms.findAll();
