@@ -1,8 +1,10 @@
-header.header
-  .col
-    .row.d-flex.justify-content-end
-        ul.nav
-          li.nav-item 
-            a.nav-link(href="/Home") Home
-          li.nav-item
-            a.nav-link(href="/logout") Log Off
+header.headermain  
+  nav.navbar.navbar-expand-lg.navbar-light.navbar-right
+    a.navbar-brand(href='#')
+      img(src='../../../images/automdlogo.png')
+    button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarNav' aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation')
+      span.navbar-toggler-icon
+    #navbarNav.collapse.navbar-collapse
+      ul.navbar-nav
+        li.nav-item
+          a.nav-link(href='/logout') Log Off

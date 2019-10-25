@@ -4,7 +4,8 @@ block base
   .container
     .row
       .col
-        h1 AutoMD - Login
+        img(src='../../../images/automdlogo.png')
+        h1 Login
         if registeredSuccessfully
           .alert.alert-success You have registered successfully, now you may log in.
         form(method="POST" action="/login")

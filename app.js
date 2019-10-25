@@ -20,8 +20,6 @@ app.use(
     })
 );
 
-
-
 app.get("/", function(req, res) {
     res.render("index");
 });
@@ -118,22 +116,22 @@ app.get("/Symptoms/:id", async(req, res) => {
     res.render("treatmentpage", data);
 });
 
-app.get("/Symptoms/:id", async(req,res)=>{
+app.get("/Symptoms/:id", async(req, res) => {
     let data = {};
-    data.treat =  await models.Treatments.findOne({
+    data.treat = await models.Treatments.findOne({
         where: { id: req.params.id }
     });
     data.img = await models.Images.findOne({
-        where: { id: req.params.id}
+        where: { id: req.params.id }
     });
-    res.render("treatmentpage",data);   
+    res.render("treatmentpage", data);
 });
 
-app.get ('/home', async function (req, res)  {
+app.get('/home', async function(req, res) {
     let data = {}
     data.vehicles = await models.vehicles.findAll();
     data.symptoms = await models.Symptoms.findAll();
-    res.render('Home', data)  
+    res.render('Home', data)
 });
 
 app.get('/dashboard', async function(req, res) {
@@ -143,4 +141,5 @@ app.get('/dashboard', async function(req, res) {
 });
 
 app.listen(port, () => {
-    console.log(`Port ${port} is listening`)});
+    console.log(`Port ${port} is listening`)
+});
